@@ -1,13 +1,10 @@
-ifeq (Darwin,$(shell uname -s))
-	CC:=clang
-else
-	CC:=gcc
-endif
+CC=cc
+CFLAGS=-c -Os -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_COLUMN_METADATA
 
 all: sqlite3.o
 	
 sqlite3.o: c/sqlite3.c
-	$(CC) -c -O3 c/sqlite3.c -o sqlite3.o
+	$(CC) c/sqlite3.c -o sqlite3.o $(CFLAGS)
 	
 clean:
-	rm -f *.o
+	rm -f sqlite3.o
