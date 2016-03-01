@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Enum PeekMode</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Enum PeekMode</h1>
+			<section>
+				<p>Behavior of the <code class="lang-d"><a href="../d2sqlite3/Row.peek.html"><span class="typ">Row<wbr/></span><span class="pun">.</span><span class="pln">peek</span></a>()</code> method for arrays
+</p>
+
+					<p>The enum base type is
+						<code class="prettyprint lang-d"><span class="typ">int</span></code>
+.
+					</p>
+					<section>
+						<h3>Enum members</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/PeekMode.copy.html">
+										<code>copy</code>
+									</a>
+								</td>
+								<td>Return a <code class="lang-d"><span class="pln">copy</span></code> of the data into a new array
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/PeekMode.slice.html">
+										<code>slice</code>
+									</a>
+								</td>
+								<td>Return a <code class="lang-d"><span class="pln">slice</span></code> of the data
+</td>
+							</tr>
+						</table>
+					</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

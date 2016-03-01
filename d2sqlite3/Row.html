@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Struct Row</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Struct Row</h1>
+			<section>
+				<p>A row returned when stepping over an SQLite prepared statement.
+</p>
+<section><p>The data of each column can be retrieved:
+<ul>    <li>using <code class="lang-d"><span class="typ">Row</span></code> <a href="../d2sqlite3/Row.as.html"><code class="lang-d"><span class="pln">as</span></code></a> a random-access range of <a href="../d2sqlite3/ColumnData.html"><code class="lang-d"><span class="typ">ColumnData</span></code></a>.</li>
+    <li>using the more direct <a href="../d2sqlite3/Row.peek.html"><code class="lang-d"><span class="pln">peek</span></code></a> functions.</li>
+</ul>
+</p>
+</section>
+
+					<section>
+						<h3>Properties</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.back.html" class="public property"><code>back</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><a href="../d2sqlite3/ColumnData.html"><span class="typ">ColumnData</span></a></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.empty.html" class="public property"><code>empty</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><span class="typ">bool</span></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.front.html" class="public property"><code>front</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><a href="../d2sqlite3/ColumnData.html"><span class="typ">ColumnData</span></a></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.length.html" class="public property"><code>length</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><span class="typ">int</span></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.save.html" class="public property"><code>save</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><a href="../d2sqlite3/Row.html"><span class="typ">Row</span></a></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>Methods</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.as.html" class="public">
+										<code>as</code>
+									</a>
+								</td>
+								<td>Returns a struct with field members populated from the row's data.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnDatabaseName.html" class="public">
+										<code>columnDatabaseName</code>
+									</a>
+								</td>
+								<td>Determines the name of the database, table, or column that is the origin of a
+        particular result column in SELECT statement.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnDeclaredTypeName.html" class="public">
+										<code>columnDeclaredTypeName</code>
+									</a>
+								</td>
+								<td>Determines the type of the data in a particular column.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnName.html" class="public">
+										<code>columnName</code>
+									</a>
+								</td>
+								<td>Determines the name of a particular column.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnOriginName.html" class="public">
+										<code>columnOriginName</code>
+									</a>
+								</td>
+								<td>Determines the name of the database, table, or column that is the origin of a
+        particular result column in SELECT statement.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnTableName.html" class="public">
+										<code>columnTableName</code>
+									</a>
+								</td>
+								<td>Determines the name of the database, table, or column that is the origin of a
+        particular result column in SELECT statement.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.columnType.html" class="public">
+										<code>columnType</code>
+									</a>
+								</td>
+								<td>Determines the type of the data in a particular column.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.opIndex.html" class="public">
+										<code>opIndex</code>
+									</a>
+								</td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.peek.html" class="public">
+										<code>peek</code>
+									</a>
+								</td>
+								<td>Returns the data of a column directly.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.popBack.html" class="public">
+										<code>popBack</code>
+									</a>
+								</td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Row.popFront.html" class="public">
+										<code>popFront</code>
+									</a>
+								</td>
+								<td>Range interface.
+</td>
+							</tr>
+						</table>
+					</section>
+<section><h3>Warning</h3>
+<p>The data of the row is invalid when the next row is accessed (after a call to
+    <code class="lang-d"><a href="../d2sqlite3/ResultRange.popFront.html"><span class="typ">ResultRange<wbr/></span><span class="pun">.</span><span class="pln">popFront</span></a>()</code>).
+</p>
+</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

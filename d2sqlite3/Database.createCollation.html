@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Function Database.createCollation</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Function Database.createCollation</h1>
+			<section>
+				<p>Creates and registers a collation function in the database.
+</p>
+<section></section>
+
+					<section>
+						<h3>Prototype</h3>
+						<div class="prototype">
+							<code class="lang-d">
+<span class="typ">void</span> <span class="pln">createCollation</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">name</span><span class="pun">,</span>
+								<br/>
+&nbsp;&nbsp;<span class="pln">T</span> <span class="pln">fun</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isFunctionPointer</span><span class="pun">!</span><span class="pln">T </span><span class="pun">|| </span><span class="pln">isDelegate</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+							</code>
+						</div>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="name">name</td><td> The <a href="../d2sqlite3/Database.createCollation.html#name"><code class="lang-d"><span class="pln">name</span></code></a> that the function will have in the database.
+</td></tr>
+<tr><td id="fun">fun</td><td> a delegate or function that implements the collation. The function <i><a href="../d2sqlite3/Database.createCollation.html#fun"><code class="lang-d"><span class="pln">fun</span></code></a></i>
+        must satisfy these criteria:
+            <ul>                <li>Takes two string arguments (s1 and s2). </li>
+                <li>Returns an integer (ret). </li>
+                <li>If s1 is less than s2, ret &lt; 0.</li>
+                <li>If s1 is equal to s2, ret == 0.</li>
+                <li>If s1 is greater than s2, ret &gt; 0.</li>
+                <li>If s1 is equal to s2, then s2 is equal to s1.</li>
+                <li>If s1 is equal to s2 and s2 is equal to s3, then s1 is equal to s3.</li>
+                <li>If s1 is less than s2, then s2 is greater than s1.</li>
+                <li>If s1 is less than s2 and s2 is less than s3, then s1 is less than s3.</li>
+            </ul></td></tr>
+</table>
+</section>
+<section><h3>See Also</h3>
+<p><a href="http://www.sqlite.org/lang_aggfunc.html">http://www.sqlite.org/lang_aggfunc.html</a>
+</p>
+</section>
+<section><h3>Example</h3>
+<pre class="code"><code class="lang-d"><span class="com">// The implementation of the collation
+</span><span class="typ">int </span><span class="pln">my_collation</span><span class="pun">(</span><span class="typ">string </span><span class="pln">s1</span><span class="pun">, </span><span class="typ">string </span><span class="pln">s2</span><span class="pun">)
+{
+    </span><span class="kwd">import </span><span class="pln">std<wbr/></span><span class="pun">.</span><span class="pln">uni</span><span class="pun">;
+    </span><span class="kwd">return </span><span class="pln">icmp</span><span class="pun">(</span><span class="pln">s1</span><span class="pun">, </span><span class="pln">s2</span><span class="pun">);
+}
+
+</span><span class="kwd">auto </span><span class="pln">db </span><span class="pun">= <a href="../d2sqlite3/Database.html"></span><span class="typ">Database</a></span><span class="pun">(</span><span class="str">":memory:"</span><span class="pun">);
+</span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">createCollation</span><span class="pun">(</span><span class="str">"my_coll"</span><span class="pun">, &amp;</span><span class="pln">my_collation</span><span class="pun">);
+</span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">run</span><span class="pun">(</span><span class="str">"CREATE TABLE test (word TEXT);
+        INSERT INTO test (word) VALUES ('straße');
+        INSERT INTO test (word) VALUES ('strasses');"</span><span class="pun">);
+
+</span><span class="kwd">auto </span><span class="pln">word </span><span class="pun">= </span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="str">"SELECT word FROM test ORDER BY word COLLATE my_coll"</span><span class="pun">)
+              <wbr/>.</span><span class="pln">oneValue</span><span class="pun">!</span><span class="typ">string</span><span class="pun">;
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">word </span><span class="pun">== </span><span class="str">"straße"</span><span class="pun">);
+
+</span></code></pre>
+</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

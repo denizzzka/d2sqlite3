@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Enum Deterministic</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Enum Deterministic</h1>
+			<section>
+				<p>A caracteristic of user-defined functions or aggregates.
+</p>
+
+					<p>The enum base type is
+						<code class="prettyprint lang-d"><span class="typ">int</span></code>
+.
+					</p>
+					<section>
+						<h3>Enum members</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Deterministic.no.html">
+										<code>no</code>
+									</a>
+								</td>
+								<td>The returned value can vary even if the function is called with the same parameters.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/Deterministic.yes.html">
+										<code>yes</code>
+									</a>
+								</td>
+								<td>The returned value is the same if the function is called with the same parameters.
+</td>
+							</tr>
+						</table>
+					</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

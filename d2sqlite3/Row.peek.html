@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Function Row.peek</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Function Row.peek</h1>
+			<section>
+				<p>Returns the data of a column directly.
+</p>
+<section><p>Contrary to <code class="lang-d"><a href="../d2sqlite3/Row.opIndex.html"><span class="pln">opIndex</span></a></code>, the <code class="lang-d"><a href="../d2sqlite3/Row.peek.html"><span class="pln">peek</span></a></code> functions return the data directly, automatically cast to T,
+    without the overhead of using a wrapping type (<code class="lang-d"><a href="../d2sqlite3/ColumnData.html"><span class="typ">ColumnData</span></a></code>).
+</p>
+
+<p>    When using <code class="lang-d"><a href="../d2sqlite3/Row.peek.html"><span class="pln">peek</span></a></code> to retrieve a BLOB, you can use either:
+        <ul>            <li><code class="lang-d"><a href="../d2sqlite3/Row.peek.html"><span class="pln">peek</span></a>!(ubyte[], <a href="../d2sqlite3/PeekMode.copy.html"><span class="typ">PeekMode<wbr/></span><span class="pun">.</span><span class="pln">copy</span></a>)(<a href="../d2sqlite3/Row.peek.html#index"><span class="pln">index</span></a>)</code>,
+              in which case the function returns a copy of the data that will outlive the step
+              to the next row,
+            or</li>
+            <li><code class="lang-d"><a href="../d2sqlite3/Row.peek.html"><span class="pln">peek</span></a>!(ubyte[], <a href="../d2sqlite3/PeekMode.slice.html"><span class="typ">PeekMode<wbr/></span><span class="pun">.</span><span class="pln">slice</span></a>)(<a href="../d2sqlite3/Row.peek.html#index"><span class="pln">index</span></a>)</code>,
+              in which case a slice of SQLite's internal buffer is returned (see Warnings).</li>
+        </ul>
+</p>
+</section>
+
+					<section>
+						<h3>Prototypes</h3>
+						<div class="prototype">
+							<code class="lang-d">
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isBoolean</span><span class="pun">!</span><span class="pln">T </span><span class="pun">|| </span><span class="pln">isIntegral</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isFloatingPoint</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isSomeString</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">, </span><span class="pln">d2sqlite3<wbr/></span><span class="pun">.</span><span class="typ">PeekMode </span><span class="pln">mode</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isArray</span><span class="pun">!</span><span class="pln">T </span><span class="pun">&amp;&amp; !</span><span class="pln">isSomeString</span><span class="pun">!</span><span class="pln">T</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isInstanceOf</span><span class="pun">!(</span><span class="typ">Nullable</span><span class="pun">, </span><span class="pln">T</span><span class="pun">) &amp;&amp; (!</span><span class="pln">isArray</span><span class="pun">!(</span><span class="typ">TemplateArgsOf</span><span class="pun">!</span><span class="pln">T</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]) || </span><span class="pln">isSomeString</span><span class="pun">!(</span><span class="typ">TemplateArgsOf</span><span class="pun">!</span><span class="pln">T</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]))</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">, </span><span class="pln">d2sqlite3<wbr/></span><span class="pun">.</span><span class="typ">PeekMode </span><span class="pln">mode</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span>
+								<br/>
+<span class="kwd">if</span> <span class="pun">(</span><span class="pln">isInstanceOf</span><span class="pun">!(</span><span class="typ">Nullable</span><span class="pun">, </span><span class="pln">T</span><span class="pun">) &amp;&amp; </span><span class="pln">isArray</span><span class="pun">!(</span><span class="typ">TemplateArgsOf</span><span class="pun">!</span><span class="pln">T</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]) &amp;&amp; !</span><span class="pln">isSomeString</span><span class="pun">!(</span><span class="typ">TemplateArgsOf</span><span class="pun">!</span><span class="pln">T</span><span class="pun">[</span><span class="lit">0</span><span class="pun">])</span><span class="pun">);</span>
+								<br/>
+								<br/>
+<span class="pln">T</span> <span class="pln">peek</span><span class="pun">(</span><span class="pln">T</span><span class="pun">)</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">columnName</span>
+								<br/>
+<span class="pun">)</span><span class="pun">;</span>
+							</code>
+						</div>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="T">T</td><td> The type of the returned data. T must be a boolean, a built-in numeric type, a
+        string, an array or a <code class="lang-d">Nullable</code>.
+        <table>            <tr>                <th>Condition on T</th>
+                <th>Requested database type</th>
+            </tr>
+            <tr>                <td><code class="lang-d">isIntegral!T || isBoolean!T</code></td>
+                <td>INTEGER</td>
+            </tr>
+            <tr>                <td><code class="lang-d">isFloatingPoint!T</code></td>
+                <td>FLOAT</td>
+            </tr>
+            <tr>                <td><code class="lang-d">isSomeString!T</code></td>
+                <td>TEXT</td>
+            </tr>
+            <tr>                <td><code class="lang-d">isArray!T</code></td>
+                <td>BLOB</td>
+            </tr>
+            <tr>                <td><code class="lang-d">is(T == Nullable!U, U...)</code></td>
+                <td>NULL or U</td>
+            </tr>
+        </table>
+</td></tr>
+<tr><td id="index">index</td><td> The <a href="../d2sqlite3/Row.peek.html#index"><code class="lang-d"><span class="pln">index</span></code></a> of the column in the prepared statement or
+        the name of the column, <a href="../d2sqlite3/Row.as.html"><code class="lang-d"><span class="pln">as</span></code></a> specified in the prepared statement
+        with an AS clause. The <a href="../d2sqlite3/Row.peek.html#index"><code class="lang-d"><span class="pln">index</span></code></a> of the first column is 0.</td></tr>
+</table>
+</section>
+<section><h3>Returns</h3>
+<p>A value of type T. The returned value is T.init if the data type is NULL.
+        In all other cases, the data is fetched from SQLite (which returns a value
+        depending on its own conversion rules;
+        see <a href="http://www.sqlite.org/c3ref/column_blob.html">http://www.sqlite.org/c3ref/column_blob.html</a> and
+        <a href="http://www.sqlite.org/lang_expr.html#castexpr">http://www.sqlite.org/lang_expr.html#castexpr</a>), and it is converted
+        to T using <code class="lang-d">std.conv.to!T</code>.
+</p>
+</section>
+<section><h3>Warnings</h3>
+<p>When using <code class="lang-d"><a href="../d2sqlite3/PeekMode.slice.html"><span class="typ">PeekMode<wbr/></span><span class="pun">.</span><span class="pln">slice</span></a></code>, the data of the slice will be <b>invalidated</b>
+        when the next row is accessed. A copy of the data has to be made somehow for it to
+        outlive the next step on the same statement.
+</p>
+
+<p>        When using referring to the column by name, the names of all the columns are
+        tested each time this function is called: use
+        numeric indexing for better performance.
+</p>
+</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Function Row.columnType</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Function Row.columnType</h1>
+			<section>
+				<p>Determines the type of the data in a particular column.
+</p>
+<section><p><code class="lang-d"><a href="../d2sqlite3/Row.columnType.html"><span class="pln">columnType</span></a></code> returns the type of the actual data in that column, whereas
+    <code class="lang-d"><a href="../d2sqlite3/Row.columnDeclaredTypeName.html"><span class="pln">columnDeclaredTypeName</span></a></code> returns the name of the type <a href="../d2sqlite3/Row.as.html"><code class="lang-d"><span class="pln">as</span></code></a> declared in the SELECT statement.
+</p>
+</section>
+
+					<section>
+						<h3>Prototypes</h3>
+						<div class="prototype">
+							<code class="lang-d">
+<a href="../d2sqlite3/SqliteType.html"><span class="typ">SqliteType</span></a> <span class="pln">columnType</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">int</span> <span class="pln">index</span>
+								<br/>
+<span class="pun">)</span><span class="pun">;</span>
+								<br/>
+								<br/>
+<a href="../d2sqlite3/SqliteType.html"><span class="typ">SqliteType</span></a> <span class="pln">columnType</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">columnName</span>
+								<br/>
+<span class="pun">)</span><span class="pun">;</span>
+							</code>
+						</div>
+					</section>
+<section><h3>See Also</h3>
+<p><a href="http://www.sqlite.org/c3ref/column_blob.html">http://www.sqlite.org/c3ref/column_blob.html</a> and
+    <a href="http://www.sqlite.org/c3ref/column_decltype.html">http://www.sqlite.org/c3ref/column_decltype.html</a>.
+</p>
+</section>
+<section><h3>Example</h3>
+<pre class="code"><code class="lang-d"><span class="kwd">auto </span><span class="pln">db </span><span class="pun">= <a href="../d2sqlite3/Database.html"></span><span class="typ">Database</a></span><span class="pun">(</span><span class="str">":memory:"</span><span class="pun">);
+</span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">run</span><span class="pun">(</span><span class="str">"CREATE TABLE items (name TEXT, price REAL);
+        INSERT INTO items VALUES ('car', 20000);
+        INSERT INTO items VALUES ('air', 'free');"</span><span class="pun">);
+
+</span><span class="kwd">auto </span><span class="pln">results </span><span class="pun">= </span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="str">"SELECT name, price FROM items"</span><span class="pun">);
+
+</span><span class="kwd">auto </span><span class="pln">row </span><span class="pun">= </span><span class="pln">results<wbr/></span><span class="pun">.</span><span class="pln">front</span><span class="pun">;
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnType</span><span class="pun">(</span><span class="lit">0</span><span class="pun">) == <a href="../d2sqlite3/SqliteType.TEXT.html"></span><span class="typ">SqliteType<wbr/></span><span class="pun">.</span><span class="pln">TEXT</a></span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnType</span><span class="pun">(</span><span class="str">"price"</span><span class="pun">) == <a href="../d2sqlite3/SqliteType.FLOAT.html"></span><span class="typ">SqliteType<wbr/></span><span class="pun">.</span><span class="pln">FLOAT</a></span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnDeclaredTypeName</span><span class="pun">(</span><span class="lit">0</span><span class="pun">) == </span><span class="str">"TEXT"</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnDeclaredTypeName</span><span class="pun">(</span><span class="str">"price"</span><span class="pun">) == </span><span class="str">"REAL"</span><span class="pun">);
+
+</span><span class="pln">results<wbr/></span><span class="pun">.</span><span class="pln">popFront</span><span class="pun">();
+</span><span class="pln">row </span><span class="pun">= </span><span class="pln">results<wbr/></span><span class="pun">.</span><span class="pln">front</span><span class="pun">;
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnType</span><span class="pun">(</span><span class="lit">0</span><span class="pun">) == <a href="../d2sqlite3/SqliteType.TEXT.html"></span><span class="typ">SqliteType<wbr/></span><span class="pun">.</span><span class="pln">TEXT</a></span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnType</span><span class="pun">(</span><span class="str">"price"</span><span class="pun">) == <a href="../d2sqlite3/SqliteType.TEXT.html"></span><span class="typ">SqliteType<wbr/></span><span class="pun">.</span><span class="pln">TEXT</a></span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnDeclaredTypeName</span><span class="pun">(</span><span class="lit">0</span><span class="pun">) == </span><span class="str">"TEXT"</span><span class="pun">);
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">columnDeclaredTypeName</span><span class="pun">(</span><span class="str">"price"</span><span class="pun">) == </span><span class="str">"REAL"</span><span class="pun">);
+
+</span></code></pre>
+</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

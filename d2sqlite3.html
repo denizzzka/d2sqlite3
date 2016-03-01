@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Module d2sqlite3</title>
+		<link rel="stylesheet" href="./css/style.min.css"/>
+		<script type="text/javascript" src="./js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="./symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "./";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="./d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Module d2sqlite3</h1>
+			<p>This module provides a thin and convenient wrapper around the SQLite C API.
+</p>
+<section></section>
+
+			<section><section><h2>Features</h2>
+<p><ul>    <li>Use reference-counted structs (<a href="./d2sqlite3/Database.html"><code class="lang-d"><span class="typ">Database</span></code></a>, <a href="./d2sqlite3/Statement.html"><code class="lang-d"><span class="typ">Statement</span></code></a>, <a href="./d2sqlite3/ResultRange.html"><code class="lang-d"><span class="typ">ResultRange</span></code></a>) instead of SQLite objects
+    pointers.</li>
+    <li>Run multistatement SQL code with <code class="lang-d"><a href="./d2sqlite3/Database.run.html"><span class="typ">Database<wbr/></span><span class="pun">.</span><span class="pln">run</span></a>()</code>.</li>
+    <li>Use built-in integral types, floating point types, <code class="lang-d">string</code>s, <code class="lang-d">ubyte[]</code> and
+    <code class="lang-d">Nullable</code> types directly: conversions to and from SQLite types is automatic and GC-safe.</li>
+    <li>Bind multiple values to a prepare statement with <code class="lang-d"><a href="./d2sqlite3/Statement.bindAll.html"><span class="typ">Statement<wbr/></span><span class="pun">.</span><span class="pln">bindAll</span></a>()</code> or
+    <code class="lang-d"><a href="./d2sqlite3/Statement.inject.html"><span class="typ">Statement<wbr/></span><span class="pun">.</span><span class="pln">inject</span></a>()</code>. It's also possible to bind the fields of a struct automatically with
+    <code class="lang-d"><a href="./d2sqlite3/Statement.inject.html"><span class="typ">Statement<wbr/></span><span class="pun">.</span><span class="pln">inject</span></a>()</code>.</li>
+    <li>Handle the results of a query as a range of <code class="lang-d"><a href="./d2sqlite3/Row.html"><span class="typ">Row</span></a></code>s, and the columns of a row
+    as a range of <code class="lang-d"><a href="./d2sqlite3/ColumnData.html"><span class="typ">ColumnData</span></a></code> (equivalent of a <code class="lang-d">Variant</code> fit for SQLite types).</li>
+    <li>Access the data in a result row directly, by index or by name,
+    with the <code class="lang-d"><a href="./d2sqlite3/Row.peek.html"><span class="typ">Row<wbr/></span><span class="pun">.</span><span class="pln">peek</span></a>!T()</code> methods.</li>
+    <li>Make a struct out of the data of a row with <code class="lang-d"><a href="./d2sqlite3/Row.as.html"><span class="typ">Row<wbr/></span><span class="pun">.</span><span class="pln">as</span></a>!T()</code>.</li>
+    <li>Register D functions as SQLite callbacks, with <code class="lang-d"><a href="./d2sqlite3/Database.setUpdateHook.html"><span class="typ">Database<wbr/></span><span class="pun">.</span><span class="pln">setUpdateHook</span></a>()</code> <i>et al</i>.</li>
+    <li>Create new SQLite functions, aggregates or collations out of D functions or delegate,
+    with automatic type converions, with <code class="lang-d"><a href="./d2sqlite3/Database.createFunction.html"><span class="typ">Database<wbr/></span><span class="pun">.</span><span class="pln">createFunction</span></a>()</code> <i>et al</i>.</li>
+    <li>Store all the rows and columns resulting from a query at once with <code class="lang-d"><a href="./d2sqlite3/QueryCache.html"><span class="typ">QueryCache</span></a></code> (sometimes
+    useful even if not memory-friendly...).</li>
+</ul>
+</p>
+</section>
+<section><h2>Example</h2>
+<pre class="code"><code class="lang-d"><span class="com">// Note: exception handling is left aside for clarity.
+</span><span class="kwd">import </span><span class="pln">d2sqlite3</span><span class="pun">;
+</span><span class="kwd">import </span><span class="pln">std<wbr/></span><span class="pun">.</span><span class="pln">typecons </span><span class="pun">: </span><span class="typ">Nullable</span><span class="pun">;
+
+</span><span class="com">// Open a database in memory.
+</span><span class="kwd">auto </span><span class="pln">db </span><span class="pun">= <a href="./d2sqlite3/Database.html"></span><span class="typ">Database</a></span><span class="pun">(</span><span class="str">":memory:"</span><span class="pun">);
+
+</span><span class="com">// Create a table
+</span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">run</span><span class="pun">(</span><span class="str">"CREATE TABLE person (
+          id    INTEGER PRIMARY KEY,
+          name  TEXT NOT NULL,
+          score FLOAT
+        )"</span><span class="pun">);
+
+</span><span class="com">// Populate the table
+
+// Prepare an INSERT statement
+<a href="./d2sqlite3/Statement.html"></span><span class="typ">Statement</a> </span><span class="pln">statement </span><span class="pun">= </span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">prepare</span><span class="pun">(
+    </span><span class="str">"INSERT INTO person (name, score)
+     VALUES (:name, :score)"
+</span><span class="pun">);
+
+</span><span class="com">// Bind values one by one (by parameter name or index)
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="str">":name"</span><span class="pun">, </span><span class="str">"John"</span><span class="pun">);
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="lit">2</span><span class="pun">, </span><span class="lit">77.5</span><span class="pun">);
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">();
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">reset</span><span class="pun">(); </span><span class="com">// Need to reset the statement after execution.
+
+// Bind muliple values at the same time
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">bindAll</span><span class="pun">(</span><span class="str">"John"</span><span class="pun">, </span><span class="kwd">null</span><span class="pun">);
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">();
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">reset</span><span class="pun">();
+
+</span><span class="com">// Bind, execute and reset in one call
+</span><span class="pln">statement<wbr/></span><span class="pun">.</span><span class="pln">inject</span><span class="pun">(</span><span class="str">"Clara"</span><span class="pun">, </span><span class="lit">88.1</span><span class="pun">);
+
+
+</span><span class="com">// Count the changes
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">totalChanges </span><span class="pun">== </span><span class="lit">3</span><span class="pun">);
+
+
+</span><span class="com">// Count the Johns in the table.
+</span><span class="kwd">auto </span><span class="pln">count </span><span class="pun">= </span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="str">"SELECT count(*) FROM person WHERE name == 'John'"</span><span class="pun">)
+               <wbr/>.</span><span class="pln">oneValue</span><span class="pun">!</span><span class="typ">long</span><span class="pun">;
+</span><span class="kwd">assert</span><span class="pun">(</span><span class="pln">count </span><span class="pun">== </span><span class="lit">2</span><span class="pun">);
+
+
+</span><span class="com">// Read the data from the table lazily
+<a href="./d2sqlite3/ResultRange.html"></span><span class="typ">ResultRange</a> </span><span class="pln">results </span><span class="pun">= </span><span class="pln">db<wbr/></span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="str">"SELECT * FROM person"</span><span class="pun">);
+</span><span class="kwd">foreach </span><span class="pun">(<a href="./d2sqlite3/Row.html"></span><span class="typ">Row</a> </span><span class="pln">row</span><span class="pun">; </span><span class="pln">results</span><span class="pun">)
+{
+    </span><span class="com">// Retrieve "id", which is the column at index 0, and contains an int,
+    // e.g. using the peek function (best performance).
+    </span><span class="kwd">auto </span><span class="pln">id </span><span class="pun">= </span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">peek</span><span class="pun">!</span><span class="typ">long</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);
+
+    </span><span class="com">// Retrieve "name", e.g. using opIndex(string), which returns a ColumnData.
+    </span><span class="kwd">auto </span><span class="pln">name </span><span class="pun">= </span><span class="pln">row</span><span class="pun">[</span><span class="str">"name"</span><span class="pun">]<wbr/>.</span><span class="pln">as</span><span class="pun">!</span><span class="typ">string</span><span class="pun">;
+
+    </span><span class="com">// Retrieve "score", which is at index 2, e.g. using the peek function,
+    // using a Nullable type
+    </span><span class="kwd">auto </span><span class="pln">score </span><span class="pun">= </span><span class="pln">row<wbr/></span><span class="pun">.</span><span class="pln">peek</span><span class="pun">!(</span><span class="typ">Nullable</span><span class="pun">!</span><span class="typ">double</span><span class="pun">)(</span><span class="lit">2</span><span class="pun">);
+    </span><span class="kwd">if </span><span class="pun">(!</span><span class="pln">score<wbr/></span><span class="pun">.</span><span class="pln">isNull</span><span class="pun">)
+    {
+        </span><span class="com">// ...
+    </span><span class="pun">}
+}
+</span></code></pre>
+</section>
+</section>
+			<section>
+				<h2>Functions</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="config" class="public" href="./d2sqlite3/config.html">
+								<code>config</code>
+							</a>
+						</td>
+						<td>Sets a configuration option.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="initialize" class="public" href="./d2sqlite3/initialize.html">
+								<code>initialize</code>
+							</a>
+						</td>
+						<td>Manually initializes (or shuts down) SQLite.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="literal" class="public" href="./d2sqlite3/literal.html">
+								<code>literal</code>
+							</a>
+						</td>
+						<td>Turns <i><a href="./d2sqlite3/literal.html#value"><code class="lang-d"><span class="pln">value</span></code></a></i> into a literal that can be used in an SQLite expression.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="shutdown" class="public" href="./d2sqlite3/shutdown.html">
+								<code>shutdown</code>
+							</a>
+						</td>
+						<td>Manually initializes (or shuts down) SQLite.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="threadSafe" class="public" href="./d2sqlite3/threadSafe.html">
+								<code>threadSafe</code>
+							</a>
+						</td>
+						<td>Tells whether SQLite was compiled with the thread-safe options.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="versionNumber" class="public" href="./d2sqlite3/versionNumber.html">
+								<code>versionNumber</code>
+							</a>
+						</td>
+						<td>Gets the library's version number (e.g. 3008007).
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="versionString" class="public" href="./d2sqlite3/versionString.html">
+								<code>versionString</code>
+							</a>
+						</td>
+						<td>Gets the library's version string (e.g. "3.8.7").
+</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Classes</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="SqliteException" class="public" href="./d2sqlite3/SqliteException.html">
+								<code>SqliteException</code>
+							</a>
+						</td>
+						<td>Exception thrown when SQLite functions return an error.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Structs</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="ColumnData" class="public" href="./d2sqlite3/ColumnData.html">
+								<code>ColumnData</code>
+							</a>
+						</td>
+						<td>Some data retrieved from a column.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="ColumnMetadata" class="public" href="./d2sqlite3/ColumnMetadata.html">
+								<code>ColumnMetadata</code>
+							</a>
+						</td>
+						<td>Information about a column.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="Database" class="public" href="./d2sqlite3/Database.html">
+								<code>Database</code>
+							</a>
+						</td>
+						<td>An SQLite database connection.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="QueryCache" class="public" href="./d2sqlite3/QueryCache.html">
+								<code>QueryCache</code>
+							</a>
+						</td>
+						<td>Caches all the results of a query in memory at once.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="ResultRange" class="public" href="./d2sqlite3/ResultRange.html">
+								<code>ResultRange</code>
+							</a>
+						</td>
+						<td>An input range interface to access the rows resulting from an SQL query.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="Row" class="public" href="./d2sqlite3/Row.html">
+								<code>Row</code>
+							</a>
+						</td>
+						<td>A row returned when stepping over an SQLite prepared statement.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="Statement" class="public" href="./d2sqlite3/Statement.html">
+								<code>Statement</code>
+							</a>
+						</td>
+						<td>An SQLite statement execution.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Enums</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="Deterministic" class="public" href="./d2sqlite3/Deterministic.html">
+								<code>Deterministic</code>
+							</a>
+						</td>
+						<td>A caracteristic of user-defined functions or aggregates.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="PeekMode" class="public" href="./d2sqlite3/PeekMode.html">
+								<code>PeekMode</code>
+							</a>
+						</td>
+						<td>Behavior of the <code class="lang-d"><a href="./d2sqlite3/Row.peek.html"><span class="typ">Row<wbr/></span><span class="pun">.</span><span class="pln">peek</span></a>()</code> method for arrays
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="SqliteType" class="public" href="./d2sqlite3/SqliteType.html">
+								<code>SqliteType</code>
+							</a>
+						</td>
+						<td>SQLite type codes
+</td>
+					</tr>
+				</table>
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

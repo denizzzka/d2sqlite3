@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Function Database.tableColumnMetadata</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Function Database.tableColumnMetadata</h1>
+			<section>
+				<p>Gets metadata for a specific <a href="../d2sqlite3/Database.tableColumnMetadata.html#table"><code class="lang-d"><span class="pln">table</span></code></a> <a href="../d2sqlite3/Database.tableColumnMetadata.html#column"><code class="lang-d"><span class="pln">column</span></code></a> of an attached <a href="../d2sqlite3/Database.tableColumnMetadata.html#database"><code class="lang-d"><span class="pln">database</span></code></a>.
+</p>
+<section></section>
+
+					<section>
+						<h3>Prototype</h3>
+						<div class="prototype">
+							<code class="lang-d">
+<a href="../d2sqlite3/ColumnMetadata.html"><span class="typ">ColumnMetadata</span></a> <span class="pln">tableColumnMetadata</span><span class="pun">(</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">table</span><span class="pun">,</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">column</span><span class="pun">,</span>
+								<br/>
+&nbsp;&nbsp;<span class="typ">string</span> <span class="pln">database</span> <span class="pun">=</span> <span class="str">"main"</span>
+								<br/>
+<span class="pun">)</span><span class="pun">;</span>
+							</code>
+						</div>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="table">table</td><td> The name of the <a href="../d2sqlite3/Database.tableColumnMetadata.html#table"><code class="lang-d"><span class="pln">table</span></code></a>.
+</td></tr>
+<tr><td id="column">column</td><td> The name of the <a href="../d2sqlite3/Database.tableColumnMetadata.html#column"><code class="lang-d"><span class="pln">column</span></code></a>.
+</td></tr>
+<tr><td id="database">database</td><td> The name of a <a href="../d2sqlite3/Database.tableColumnMetadata.html#database"><code class="lang-d"><span class="pln">database</span></code></a> attached. If null, then all attached databases
+        are searched for the <a href="../d2sqlite3/Database.tableColumnMetadata.html#table"><code class="lang-d"><span class="pln">table</span></code></a> using the same algorithm used by the <a href="../d2sqlite3/Database.tableColumnMetadata.html#database"><code class="lang-d"><span class="pln">database</span></code></a> engine
+        to resolve unqualified <a href="../d2sqlite3/Database.tableColumnMetadata.html#table"><code class="lang-d"><span class="pln">table</span></code></a> references.</td></tr>
+</table>
+</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

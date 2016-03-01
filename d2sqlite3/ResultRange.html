@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Struct ResultRange</title>
+		<link rel="stylesheet" href="../css/style.min.css"/>
+		<script type="text/javascript" src="../js/script.min.js"></script>
+	</head>
+	<body onload="setupDdox();">
+		<header>
+		</header>
+		<nav id="main-nav">
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<input id="symbolSearch" type="text" placeholder="Search" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" autofocus="autofocus"/>
+					<ul id="symbolSearchResults" style="display: none"></ul>
+					<script type="application/javascript" src="../symbols.js"></script>
+					<script type="application/javascript">
+var symbolSearchRootDir = "../";
+document.getElementById('symbolSearchPane').style.display = 'block';
+					</script>
+				</div>
+						<ul class="tree-view">
+							<li>
+								<a href="../d2sqlite3.html" class="selected module">d2sqlite3</a>
+							</li>
+						</ul>
+			<p id="main-nav-footer">
+ Built with
+				<a href="https://github.com/MartinNowak/scod">scod</a>
+			</p>
+		</nav>
+		<div id="main-contents">
+			<h1>Struct ResultRange</h1>
+			<section>
+				<p>An input range interface to access the rows resulting from an SQL query.
+</p>
+<section><p>The elements of the range are <code class="lang-d"><a href="../d2sqlite3/Row.html"><span class="typ">Row</span></a></code> structs. A <code class="lang-d"><a href="../d2sqlite3/Row.html"><span class="typ">Row</span></a></code> is just a view of the current
+row when iterating the results of a <code class="lang-d"><span class="typ">ResultRange</span></code>. It becomes invalid as soon as
+<code class="lang-d"><a href="../d2sqlite3/ResultRange.popFront.html"><span class="typ">ResultRange<wbr/></span><span class="pun">.</span><span class="pln">popFront</span></a>()</code> is called (it contains undefined data afterwards). Use
+<code class="lang-d"><a href="../d2sqlite3/QueryCache.html"><span class="typ">QueryCache</span></a></code> to store the content of rows past the execution of the statement.
+</p>
+
+<p>Instances of this struct are typically returned by <code class="lang-d"><a href="../d2sqlite3/Database.execute.html"><span class="typ">Database<wbr/></span><span class="pun">.</span><span class="pln">execute</span></a>()</code> or
+<code class="lang-d"><a href="../d2sqlite3/Statement.execute.html"><span class="typ">Statement<wbr/></span><span class="pun">.</span><span class="pln">execute</span></a>()</code>.
+</p>
+</section>
+
+					<section>
+						<h3>Properties</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/ResultRange.empty.html" class="public property"><code>empty</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><span class="typ">bool</span></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/ResultRange.front.html" class="public property"><code>front</code></a>
+									<span class="tableEntryAnnotation">[get]</span>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d"><a href="../d2sqlite3/Row.html"><span class="typ">Row</span></a></code></td>
+								<td>Range interface.
+</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>Methods</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/ResultRange.oneValue.html" class="public">
+										<code>oneValue</code>
+									</a>
+								</td>
+								<td>Gets only the first value of the first row returned by the execution of the statement.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../d2sqlite3/ResultRange.popFront.html" class="public">
+										<code>popFront</code>
+									</a>
+								</td>
+								<td>Range interface.
+</td>
+							</tr>
+						</table>
+					</section>
+
+			</section>
+			<footer>
+				<hr/>
+				<div id="license-info">
+<p>Nicolas Sicard (biozic) and other contributors at <a href="https://github.com/biozic/d2sqlite3">https://github.com/biozic/<code class="lang-d"><span class="pln">d2sqlite3</span></code></a>
+</p>
+
+<p>Copyright 2011-16 Nicolas Sicard.
+</p>
+
+<p><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+</p>
+
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>
