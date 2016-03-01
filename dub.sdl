@@ -12,12 +12,13 @@ configuration "with-lib" {
 configuration "without-lib" {
 }
 configuration "all-included" {
-    sourceFiles "lib/win32/sqlite3.lib" platform="windows-x86"
-    copyFiles   "lib/win32/sqlite3.dll" platform="windows-x86"
-    sourceFiles "lib/win64/sqlite3.lib" platform="windows-x86_64"
-    copyFiles   "lib/win64/sqlite3.dll" platform="windows-x86_64"
+    sourceFiles "lib/win64/sqlite3-win64.obj"  platform="windows-x86_64"
     
     preBuildCommands "make -C $PACKAGE_DIR -f sqlite3-posix.mak" platform="posix"
     sourceFiles "sqlite3.o" platform="posix"
-    libs "dl" "pthread" platform="posix"
+    libs "dl" platform="linux"
+}
+configuration "all-included-win32-coff" {
+    dflags "-m32mscoff" platform="windows-x86"
+    sourceFiles "lib/win32/sqlite3-win32-coff.obj" platform="windows-x86"
 }
